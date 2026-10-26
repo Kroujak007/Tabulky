@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080a09">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kalorie">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="styles.css">
+<title>Kalorie</title>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">K</span><div><div class="eyebrow">TVŮJ DENNÍ PŘEHLED</div><h1>Kalorie<span class="green">.</span></h1></div></div>
+    <button class="icon-button" id="settingsBtn" aria-label="Nastavení">⚙</button>
+  </header>
+
+  <main>
+    <section class="page active" id="page-home">
+      <div class="date-line"><button class="date-arrow" id="prevDay">‹</button><div><div class="eyebrow">PŘEHLED DNE</div><div id="dateLabel" class="date-label"></div></div><button class="date-arrow" id="nextDay">›</button></div>
+      <div class="hero-card">
+        <div class="hero-top"><span class="muted">Přijatá energie</span><span class="pill" id="goalPill">Denní cíl 2 300 kcal</span></div>
+        <div class="calorie-number"><strong id="consumed">0</strong><span>kcal</span></div>
+        <div class="progress-track"><div id="calorieProgress" class="progress-fill"></div></div>
+        <div class="hero-bottom"><span><strong id="remaining">2 300</strong> kcal zbývá</span><span id="percent">0 % cíle</span></div>
+        <div class="macro-grid">
+          <div class="macro"><div class="macro-head"><span class="dot protein"></span>Bílkoviny</div><strong><span id="protein">0</span><small> g</small></strong><div class="mini-track"><i id="proteinBar" class="protein-bg"></i></div><small class="macro-target">Cíl 160 g</small></div>
+          <div class="macro"><div class="macro-head"><span class="dot carbs"></span>Sacharidy</div><strong><span id="carbs">0</span><small> g</small></strong><div class="mini-track"><i id="carbsBar" class="carbs-bg"></i></div><small class="macro-target">Cíl 250 g</small></div>
+          <div class="macro"><div class="macro-head"><span class="dot fat"></span>Tuky</div><strong><span id="fat">0</span><small> g</small></strong><div class="mini-track"><i id="fatBar" class="fat-bg"></i></div><small class="macro-target">Cíl 75 g</small></div>
+        </div>
+      </div>
+      <div class="section-heading"><div><div class="eyebrow">DNEŠNÍ STRAVA</div><h2>Jídelníček</h2></div><button class="text-button" data-go="diary">Zobrazit vše ↗</button></div>
+      <div id="homeMeals" class="meal-list"></div>
+      <div class="quick-actions"><button class="primary-button" id="quickAdd">＋ Přidat jídlo</button><button class="secondary-button" id="quickWeight">⚖ Zapsat váhu</button></div>
+      <p class="footnote">Tvoje data zůstávají v tomto prohlížeči. Pravidelně si je zálohuj v Nastavení.</p>
+    </section>
+
+    <section class="page" id="page-diary">
+      <div class="page-intro"><div class="eyebrow">ZÁZNAMY A POTRAVINY</div><h2>Jídelníček</h2><p>Vyhledej potravinu, zadej gramáž a přidej ji do dne.</p></div>
+      <div class="search-row"><input id="foodSearch" type="search" placeholder="Hledat potravinu…" autocomplete="off"><button class="square-button" id="barcodeBtn" title="Vyhledat podle čárového kódu">▦</button></div>
+      <div id="searchResults" class="search-results"></div>
+      <div class="subtabs" id="mealTabs"><button class="selected" data-meal="Snídaně">Snídaně</button><button data-meal="Oběd">Oběd</button><button data-meal="Večeře">Večeře</button><button data-meal="Svačina">Svačina</button></div>
+      <div id="diaryMeals" class="meal-list"></div>
+      <button class="wide-secondary" id="manualFoodBtn">＋ Přidat vlastní potravinu / jídlo</button>
+    </section>
+
+    <section class="page" id="page-recipes">
+      <div class="page-intro"><div class="eyebrow">VAŘ SI PO SVÉM</div><h2>Moje recepty</h2><p>Ulož si jídla, která jíš pravidelně.</p></div>
+      <button class="primary-button full" id="newRecipeBtn">＋ Vytvořit recept</button>
+      <div id="recipeList" class="recipe-list"></div>
+    </section>
+
+    <section class="page" id="page-weight">
+      <div class="page-intro"><div class="eyebrow">SLEDUJ SVŮJ PROGRES</div><h2>Moje váha</h2><p>Důležitý je dlouhodobý trend, ne jedno číslo.</p></div>
+      <div class="weight-hero"><span class="muted">Poslední záznam</span><div><strong id="latestWeight">—</strong><span> kg</span></div><small id="weightDelta">Přidej první vážení</small></div>
+      <form id="weightForm" class="inline-form"><label for="weightInput">Nová hmotnost (kg)</label><div class="form-row"><input id="weightInput" inputmode="decimal" placeholder="např. 92,4" required><button class="primary-button" type="submit">Uložit</button></div></form>
+      <div class="section-heading"><div><div class="eyebrow">HISTORIE</div><h3>Vývoj hmotnosti</h3></div></div>
+      <div id="weightChart" class="weight-chart"></div><div id="weightHistory" class="history-list"></div>
+    </section>
+
+    <section class="page" id="page-health">
+      <div class="page-intro"><div class="eyebrow">JEDNO MÍSTO PRO TVOJE DATA</div><h2>Zdraví a nastavení</h2><p>Nastav cíle a spravuj svoje data.</p></div>
+      <div class="settings-card"><div><strong>Denní kalorický cíl</strong><small>Výchozí hodnota: 2 300 kcal</small></div><input id="calorieGoalInput" type="number" min="500" max="8000" step="50" value="2300"></div>
+      <div class="settings-card"><div><strong>Cíl bílkovin</strong><small>gramů za den</small></div><input id="proteinGoalInput" type="number" min="10" max="500" value="160"></div>
+      <div class="settings-card"><div><strong>Cíl sacharidů</strong><small>gramů za den</small></div><input id="carbsGoalInput" type="number" min="10" max="800" value="250"></div>
+      <div class="settings-card"><div><strong>Cíl tuků</strong><small>gramů za den</small></div><input id="fatGoalInput" type="number" min="10" max="300" value="75"></div>
+      <button class="primary-button full" id="saveSettings">Uložit cíle</button>
+      <div class="settings-card health-info"><div class="health-icon">♥</div><div><strong>Apple Zdraví a Apple Watch</strong><small>Webová verze nemá přímý přístup k HealthKitu. Tato integrace bude možná až v nativní iOS aplikaci.</small></div></div>
+      <div class="section-heading"><div><div class="eyebrow">TVÁ DATA</div><h3>Záloha a přenos</h3></div></div>
+      <div class="backup-buttons"><button class="secondary-button" id="exportData">↓ Exportovat zálohu</button><label class="secondary-button file-label">↑ Importovat zálohu<input id="importData" type="file" accept="application/json"></label></div>
+      <button class="danger-button full" id="clearData">Smazat všechna data</button>
+      <p class="footnote">Aplikace není zdravotnický prostředek. Nutriční hodnoty z databází ověřuj, mohou být nepřesné.</p>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-page="home"><span>◉</span><small>Přehled</small></button>
+    <button class="nav-item" data-page="diary"><span>＋</span><small>Jídlo</small></button>
+    <button class="nav-item" data-page="recipes"><span>▤</span><small>Recepty</small></button>
+    <button class="nav-item" data-page="weight"><span>⌁</span><small>Váha</small></button>
+    <button class="nav-item" data-page="health"><span>♡</span><small>Zdraví</small></button>
+  </nav>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-header"><div><div class="eyebrow" id="modalEyebrow">PŘIDAT</div><h2 id="modalTitle">Přidat jídlo</h2></div><button class="icon-button" id="closeModal">×</button></div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<div id="toast" class="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>
