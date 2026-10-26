@@ -37,3 +37,16 @@ Po nasazení:
 - Recepty zatím ukládají ručně zadané nutriční hodnoty na porci; sčítání živin z ingrediencí je další krok.
 - Databázové údaje mohou být chybné nebo neúplné; umožni uživateli hodnoty ověřit.
 - Pro veřejné použití doplň zásady ochrany osobních údajů, důkladné testování a bezpečnostní kontroly.
+
+
+## Aktualizace databáze
+Přidáno 108 běžných potravin a orientačních jídel s nutričními hodnotami na 100 g, vyhledávání a automatický přepočet dle gramáže. Zůstává online vyhledávání Open Food Facts. Hodnoty jsou orientační, u balených výrobků ověř etiketu. Původní záznamy v prohlížeči zůstávají zachovány. Při aktualizaci na GitHubu nahraj všechny soubory do kořene repozitáře a potvrď Commit changes.
+
+
+## Verze 3 – fasting, recepty, kamera
+- Fasting se počítá od poslední večeře do první následující snídaně na základě skutečného času zápisu. Je-li snídaně nezapsaná, čas běží dál; aktualizace každých 30 sekund při otevřené aplikaci.
+- Čas jídla lze při přidávání potraviny upravit. Zpětné záznamy ze starších verzí nemají čas a do fasting výpočtu nevstupují.
+- Vlastní recepty: vyber suroviny, gramáž a počet porcí; živiny se automaticky sečtou a přepočtou na porci.
+- Čárový kód: kamera pouze tam, kde prohlížeč podporuje BarcodeDetector; jinak ruční zadání.
+- Open Food Facts online hledání vyžaduje připojení; katalog běžných potravin funguje offline. Nejde o úplnou databázi všech českých výrobků.
+- Pokud během půstu sníš něco jiného než snídani, musíš počítání posoudit sám: tato verze ukončuje půst pouze snídaní.
